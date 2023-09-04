@@ -56,9 +56,14 @@ body {
   margin-top: 5px;
   margin-bottom: 10px;
 }
-#card h3 {
+#card #strangers {
   text-transform: capitalize;
   color: red;
+  margin-bottom: 7px;
+}
+#card #Friends {
+  text-transform: capitalize;
+  color: green;
   margin-bottom: 7px;
 }
 #card button {
@@ -68,6 +73,13 @@ body {
   background-color: #bebebe;
   color: #000;
   text-transform: capitalize;
-  font-size: 1vw;
+  font-size: 1.1vw;
+  font-weight: 600;
   cursor: pointer;
+}
+#card .blue {
+  background-color: rgb(54, 168, 249);
+}
+#card .red {
+  background-color: rgb(233, 93, 126);
 }
