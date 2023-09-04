@@ -14,22 +14,34 @@ var card = [
   {
     name: "smriti mishra",
     status: "strangers",
-    image:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80",
+    image:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80",
   },
 ];
-var clutter = 0;
-card.forEach((element) => {
-  clutter += `<div id="card">
+
+function print() {
+  var clutter = "";
+
+  card.forEach((element, index) => {
+    clutter += `<div id="card">
   <div id="img"><img src="${element.image}" alt="" /></div>
   <h1>${element.name}</h1>
   <p>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet,
     possimus!
   </p>
-  <h3>strangers</h3>
-  <button>add friend</button>
+  <h3>${element.status}</h3>
+  <button id="${index}">add friend</button>
 </div>`;
+  });
+  document.querySelector("#main").innerHTML = clutter;
+}
+print();
+// document.querySelector("#main").innerHTML = clutter;
+
+var main = document.querySelector("#main");
+main.addEventListener("click", function (detail) {
+  card[detail.target.id].status = "Friends";
+
+  print();
 });
-document.querySelector("#main").innerHTML = clutter;
-
-

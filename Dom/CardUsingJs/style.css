@@ -69,4 +69,5 @@ body {
   color: #000;
   text-transform: capitalize;
   font-size: 1vw;
+  cursor: pointer;
 }
