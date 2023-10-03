@@ -65,3 +65,47 @@ t.from("#page2 h1", {
     scrub: 3,
   },
 });
+t.to(".right h1", {
+  transform: `translateX(0%)`,
+
+  scrollTrigger: {
+    trigger: "#page6",
+    scroller: "body",
+    // markers: true,
+    start: "top 98%",
+    end: "bottom 0%",
+    scrub: 5,
+  },
+});
+t.to(".left h1", {
+  transform: `translateX(-90%)`,
+
+  scrollTrigger: {
+    trigger: "#page6",
+    scroller: "body",
+    // markers: true,
+    start: "top 98%",
+    end: "bottom 0%",
+
+    scrub: 5,
+  },
+});
+var yes = document.querySelector("#yes");
+yes.addEventListener("mousemove", function (dets) {
+  document.querySelector("#yes > img").style.opacity = "1";
+  document.querySelector("#yes >img").style.left = `${dets.x - 180}px`;
+  document.querySelector("#yes >img").style.top = `${dets.y - 266}px`;
+});
+var no = document.querySelector("#no");
+no.addEventListener("mousemove", function (dets) {
+  document.querySelector("#no img").style.opacity = "1";
+  document.querySelector("#no img").style.left = `${dets.x - 697}px`;
+
+  document.querySelector("#no img").style.top = `${dets.y - 250}px`;
+});
+yes.addEventListener("mouseleave", function () {
+  document.querySelector("#yes > img").style.opacity = "0";
+});
+no.addEventListener("mouseleave", function () {
+  document.querySelector("#no > img").style.opacity = "0";
+});
