@@ -1,8 +1,42 @@
+gsap.registerPlugin(ScrollTrigger);
+
+const locoScroll = new LocomotiveScroll({
+  el: document.querySelector("#main"),
+  smooth: true,
+});
+locoScroll.on("scroll", ScrollTrigger.update);
+
+ScrollTrigger.scrollerProxy("#main", {
+  scrollTop(value) {
+    return arguments.length
+      ? locoScroll.scrollTo(value, 0, 0)
+      : locoScroll.scroll.instance.scroll.y;
+  },
+  getBoundingClientRect() {
+    return {
+      top: 0,
+      left: 0,
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+  },
+  pinType: document.querySelector("#main").style.transform
+    ? "transform"
+    : "fixed",
+});
+
+// each time the window updates, we should refresh ScrollTrigger and then update LocomotiveScroll.
+ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
+
+// after everything is set up, refresh() ScrollTrigger and update LocomotiveScroll because padding may have been added for pinning, etc.
+ScrollTrigger.refresh();
+
 var icon = document.querySelector("#rnav i");
 var menu = document.querySelector("#menu");
 var tala = document.querySelector("#navbar h3");
 var cart = document.querySelector("#rnav h4");
 var body = document.body;
+var main = document.querySelector("#main");
 
 var tala = document.querySelector("#navbar h3");
 var flag = 0;
@@ -16,7 +50,7 @@ icon.addEventListener("click", function () {
     icon.style.color = "#2b2b2b";
     flag = 1;
   } else {
-    menu.style.top = "-110%";
+    menu.style.top = "-110vh";
     tala.style.color = "#dadada";
     cart.style.color = "#dadada";
     icon.style.color = "#dadada";
@@ -28,11 +62,12 @@ icon.addEventListener("click", function () {
 
 var t = gsap.timeline();
 t.from("#mainh h1", {
-  //   marginTop: 81,
-  x: 26,
-  y: -28,
+  y: 29,
+  // marginTop: 81,
+  // x: 26,
+  // y: -28,
   //   rotate: -3,
-  scale: 0.86,
+  // scale: 3.86,
   opacity: 0,
   //   transition: all,
   //   duration: 0.4,
@@ -45,7 +80,7 @@ t.from("#main h2 , #mainh h4", {
 t.to("#page1 img", {
   scale: 1,
   scrollTrigger: {
-    scroller: "body",
+    scroller: "#main",
     trigger: "#page1 img",
     // markers: true,
     start: "top 85%",
@@ -58,7 +93,7 @@ t.from("#page2 h1", {
   opacity: 0,
   scrollTrigger: {
     trigger: "#page2 h1",
-    scroller: "body",
+    scroller: "#main",
     // markers: true,
     start: "top 72%",
     end: "top 52%",
@@ -70,7 +105,7 @@ t.to(".right h1", {
 
   scrollTrigger: {
     trigger: "#page6",
-    scroller: "body",
+    scroller: "#main",
     // markers: true,
     start: "top 98%",
     end: "bottom 0%",
@@ -82,7 +117,7 @@ t.to(".left h1", {
 
   scrollTrigger: {
     trigger: "#page6",
-    scroller: "body",
+    scroller: "#main",
     // markers: true,
     start: "top 98%",
     end: "bottom 0%",
@@ -108,4 +143,34 @@ yes.addEventListener("mouseleave", function () {
 });
 no.addEventListener("mouseleave", function () {
   document.querySelector("#no > img").style.opacity = "0";
+});
+t.to("#page5 img", {
+  rotate: "360",
+  duration: 1.5,
+  repeat: -1,
+  ease: "linear",
+});
+t.to("#page2 #line", {
+  width: "1140",
+  scrollTrigger: {
+    trigger: "#page2 #line",
+    scroller: "#main",
+    // markers: true,
+    start: "top 90%",
+    end: "top 50%",
+    scrub: 4,
+  },
+});
+t.to("#top > h1", {
+  // width: "1000",
+  scale: "1",
+  opacity: "1",
+  scrollTrigger: {
+    trigger: "#top > h1",
+    scroller: "#main",
+    // markers: true,
+    start: "top 77%",
+    end: "top 30%",
+    scrub: 4,
+  },
 });
